@@ -1,0 +1,14 @@
+.vscode
+**__pycache__/
+**.pytest_cache/
+# Environments
+venv
+
+/data/
+
+# tentativa transfer
+bottlenecks
+inception
+retrained_labels.txt
+
+**.hdf5
