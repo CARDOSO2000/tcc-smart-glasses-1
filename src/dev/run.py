@@ -1,7 +1,7 @@
 
 import sounddevice as sd
 import soundfile as sf
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 from python_speech_features import mfcc
 import scipy.io.wavfile as wav
@@ -16,7 +16,7 @@ max_pad_len = 174
 mapping = {0: '', 1: 'air_conditioner', 2: 'car_horn', 3: 'children_playing', 4: 'dog_bark', 5: 'drilling', 6: 'engine_idling', 7: 'gun_shot', 8: 'jackhammer', 9: 'siren', 10: 'street_music'}
 mapping_list = ['', 'air_conditioner', 'car_horn', 'children_playing', 'dog_bark', 'drilling', 'engine_idling', 'gun_shot',  'jackhammer', 'siren', 'street_music']
 
-model = load_model('cnn.h5')
+model = load_model('cnn_v2.h5')
 
 
 def extract_features(file_name):
@@ -70,9 +70,7 @@ def save_sdaudio_file(samplerate, duration, filename):
                     channels=1, blocking=True)
     print('* end rec')
     sf.write(filename, mydata, samplerate)
-  
-  
-  
+
 
 #TODO ao inves de pegar o  maior so pega  se %>x
 
