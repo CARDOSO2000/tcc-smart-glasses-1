@@ -13,11 +13,10 @@ num_columns = 174
 num_channels = 1
 max_pad_len = 174
 
-mapping = {0: '', 1: 'air_conditioner', 2: 'car_horn', 3: 'children_playing', 4: 'dog_bark', 5: 'drilling', 6: 'engine_idling', 7: 'gun_shot', 8: 'jackhammer', 9: 'siren', 10: 'street_music'}
 mapping_list = ['', 'air_conditioner', 'car_horn', 'children_playing', 'dog_bark', 'drilling', 'engine_idling', 'gun_shot',  'jackhammer', 'siren', 'street_music']
-
-model = load_model('cnn_v2.h5')
-
+mapping_list_4_classes = ['', 'car_horn', 'dog_bark', 'gun_shot',  'siren']
+model_v2 = load_model('cnn_v2.h5')
+model_4_classes = load_model('cnn_4_classes.h5')
 
 def extract_features(file_name):
    
@@ -45,7 +44,7 @@ def extract_features(file_name):
         return None
      
 
-def get_prediction(file_name):
+def get_prediction(file_name, map_list, model):
     
     prediction_feature = extract_features(file_name) 
     prediction_feature = prediction_feature.reshape(1, num_rows, num_columns, num_channels)
@@ -53,12 +52,12 @@ def get_prediction(file_name):
     predicted_vector = model.predict(prediction_feature)
     classes_x=np.argmax(predicted_vector, axis=1)
     
-    pred_class = mapping_list[classes_x[0]]
+    pred_class = map_list[classes_x[0]]
     print(f"The predicted class is: {pred_class}") 
 
     print(predicted_vector)
     pred_vector = predicted_vector.tolist()
-    print(dict(zip(mapping_list, pred_vector[0])))    
+    print(dict(zip(map_list, pred_vector[0])))    
     
     return pred_class
 
@@ -92,16 +91,18 @@ def run_once(modo):
         
     if _modo == 1: # faz cada X segundos
         save_sdaudio_file(16000, 4, temp_filename)
-        pred = get_prediction(temp_filename) # Pode ser alterado para pegar a variavel so
+        pred = get_prediction(temp_filename, mapping_list, model_v2) # Pode ser alterado para pegar a variavel so
         return pred
         
     if _modo == 2: # Split por silencio
-        pass
+        save_sdaudio_file(16000, 4, temp_filename)
+        pred = get_prediction(temp_filename, mapping_list_4_classes, model_4_classes) # Pode ser alterado para pegar a variavel so
+        return pred
     
 ligado = True # Pode ser settado pelo app ou algo assim
 
 while ligado:
-    pred = run_once(1)
+    pred = run_once(2)
     
     # pred ta ai
     print(pred)
