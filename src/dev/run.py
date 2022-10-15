@@ -14,9 +14,9 @@ num_channels = 1
 max_pad_len = 174
 
 mapping_list = ['', 'air_conditioner', 'car_horn', 'children_playing', 'dog_bark', 'drilling', 'engine_idling', 'gun_shot',  'jackhammer', 'siren', 'street_music']
-mapping_list_4_classes = ['', 'car_horn', 'dog_bark', 'gun_shot',  'siren']
+mapping_list_4_classes = ['car_horn', 'dog_bark', 'gun_shot',  'siren']
 model_v2 = load_model('cnn_v2.h5')
-model_4_classes = load_model('cnn_4_classes.h5')
+model_4_classes = load_model('cnn_4_classes_v2.h5')
 
 def extract_features(file_name):
    
@@ -51,10 +51,24 @@ def get_prediction(file_name, map_list, model):
 
     predicted_vector = model.predict(prediction_feature)
     classes_x=np.argmax(predicted_vector, axis=1)
+    indice = classes_x[0]
     
-    pred_class = map_list[classes_x[0]]
-    print(f"The predicted class is: {pred_class}") 
+    max_value = np.amax(predicted_vector)
+    
+    print('max value ', max_value)
+    
+    
+    
+    pred_class = map_list[indice]
+    
 
+    if max_value < 0.70:
+        print("Sem certeza")
+        print(f"The predicted class possible is: {pred_class}") 
+        return ''
+    
+    print(f"The predicted class is: {pred_class}") 
+    
     print(predicted_vector)
     pred_vector = predicted_vector.tolist()
     print(dict(zip(map_list, pred_vector[0])))    
@@ -106,3 +120,4 @@ while ligado:
     
     # pred ta ai
     print(pred)
+
