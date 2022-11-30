@@ -88,7 +88,7 @@ def save_sdaudio_file(samplerate, duration, filename):
 #TODO ao inves de pegar o  maior so pega  se %>x
 
 _modo = 1
-temp_filename = 'temp_output.wav'
+temp_filename = 'deploy.wav'
 
 # Pode ser atualizado depois que enviarem do app ou algo assim, deixei auqiu para mostrar so
 def set_modo(modo=None):
@@ -104,12 +104,10 @@ def run_once(modo):
         exit(0) # finaliza, da para colocar para iniciar / desligar no app
         
     if _modo == 1: # faz cada X segundos
-        save_sdaudio_file(16000, 4, temp_filename)
         pred = get_prediction(temp_filename, mapping_list, model_v2) # Pode ser alterado para pegar a variavel so
         return pred
         
     if _modo == 2: # Split por silencio
-        save_sdaudio_file(16000, 4, temp_filename)
         pred = get_prediction(temp_filename, mapping_list_4_classes, model_4_classes) # Pode ser alterado para pegar a variavel so
         return pred
     
