@@ -10,3 +10,12 @@
 3° Após tudo verificado foi feito o deploy do container na Azure:
 ![Captura de tela 2022-11-30 211005](https://user-images.githubusercontent.com/56920123/204936239-ae72be81-3071-4427-9793-05878aa62ab3.png)
 ![Captura de tela 2022-11-30 211029](https://user-images.githubusercontent.com/56920123/204936249-7cca5ab1-287b-44c0-a22e-34d373f80253.png)
+
+4° Deploy feito com sucesso:
+![image](https://user-images.githubusercontent.com/56920123/204936369-92e452ca-34e7-422b-8e73-f99bff7574e7.png)
+
+5° Logs do container em execução:
+![image](https://user-images.githubusercontent.com/56920123/204937051-bb0d5b9d-5621-4072-8245-f1d5d77ad093.png)
+![image](https://user-images.githubusercontent.com/56920123/204937099-854ddcc9-374e-42f1-a398-a5d95de300e4.png)
+
+
